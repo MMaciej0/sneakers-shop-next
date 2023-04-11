@@ -6,7 +6,18 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    maxWidth: {
+      container: '1520px',
+      contentContainer: '1280px',
+    },
+    extend: {
+      colors: {
+        highlight: '#3bcfff',
+        primary: '#474747',
+        primaryBg: '#fff',
+        secondaryBg: '#cfcfcf',
+      },
+    },
   },
   plugins: [],
 };

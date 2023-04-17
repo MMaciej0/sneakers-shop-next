@@ -1,6 +1,8 @@
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/navbar/Navbar';
 import { Roboto } from 'next/font/google';
 import './globals.css';
+import RegisterModal from './components/modals/RegisterModal';
+import ToasterProvider from './components/providers/ToasterProvider';
 
 const roboto = Roboto({
   weight: ['300', '400', '700', '900'],
@@ -21,6 +23,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <Navbar />
+        <RegisterModal />
+        <ToasterProvider />
         {children}
       </body>
     </html>

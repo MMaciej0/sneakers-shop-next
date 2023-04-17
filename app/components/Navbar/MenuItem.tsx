@@ -5,7 +5,7 @@ type ItemProps = {
   onClick: () => void;
 };
 
-const UserMenuListItem: React.FC<ItemProps> = ({ label, onClick }) => {
+const MenuItem: React.FC<ItemProps> = ({ label, onClick }) => {
   return (
     <li
       onClick={onClick}
@@ -16,4 +16,4 @@ const UserMenuListItem: React.FC<ItemProps> = ({ label, onClick }) => {
   );
 };
 
-export default UserMenuListItem;
+export default MenuItem;

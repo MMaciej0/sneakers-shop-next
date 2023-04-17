@@ -2,10 +2,12 @@
 
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
-import UserMenuListItem from './UserMenuListItem';
+import useRegisterModal from '@/app/hooks/useRegisterModal';
+import MenuItem from './MenuItem';
 
 function UserMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const registerModal = useRegisterModal();
 
   const handleOpen = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -15,7 +17,7 @@ function UserMenu() {
     <div className="flex items-center relative">
       <Image
         onClick={handleOpen}
-        className="rounded-full cursor-pointer"
+        className="rounded-full cursor-pointer hover:shadow-md transition"
         src="/images/placeholder.jpg"
         alt="avatar"
         width={35}
@@ -23,8 +25,8 @@ function UserMenu() {
       />
       {isOpen && (
         <ul className="absolute top-12 right-0 w-40 bg-primaryBg border overflow-hidden rounded-lg text-sm shadow-md flex flex-col items-center justify-center">
-          <UserMenuListItem label="Sign in" onClick={() => {}} />
-          <UserMenuListItem label="Login" onClick={() => {}} />
+          <MenuItem label="Sign in" onClick={registerModal.onOpen} />
+          <MenuItem label="Login" onClick={() => {}} />
         </ul>
       )}
     </div>

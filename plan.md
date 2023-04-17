@@ -1,11 +1,11 @@
-1. Set simple metadata + project font
+1. Set simple metadata + project font - done
 
-2. Create container - styling client component - max 2520px centered xl:px20 md:px10 sm: px-2 px-4
+2. Create container - styling client component - max 2520px centered xl:px20 md:px10 sm: px-2 px-4 - done
 
 3. Navbar
-   3.1. app logo
-   3.2. center panel with search - modal-menu to select gender, category, brands and search
-   3.3. user menu - avatar + menu icon - drop down list - universal menu item with icon label and onclick
+   3.1. app logo - done
+   3.2. center panel with search - modal-menu to select gender and search - done
+   3.3. user menu - avatar + menu icon - drop down list - universal menu item with icon label and onclick - done
 
 4. create modal: props: isOpen, onclose, onSubmit, title, body, footer, actionLabel, disabled, secondaryAction, secondary label
    4.2 heading component

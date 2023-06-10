@@ -29,7 +29,7 @@ const RegisterModal = () => {
     setIsLoading(true);
     axios
       .post('/api/register', data)
-      .then(() => registerModalState.onClose)
+      .then(() => registerModalState.onClose())
       .catch((error) => {
         return toast.error('Something went wrong.');
       });

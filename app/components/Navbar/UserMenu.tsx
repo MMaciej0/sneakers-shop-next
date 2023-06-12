@@ -26,7 +26,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       <Image
         onClick={handleOpen}
         className="rounded-full cursor-pointer hover:shadow-md transition"
-        src="/images/placeholder.jpg"
+        src={currentUser?.image || '/images/placeholder.jpg'}
         alt="avatar"
         width={35}
         height={35}

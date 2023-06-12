@@ -2,12 +2,20 @@
 
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
-import useRegisterModal from '@/app/hooks/useRegisterModal';
 import MenuItem from './MenuItem';
+import useRegisterModal from '@/app/hooks/useRegisterModal';
+import useLoginModal from '@/app/hooks/useLoginModal';
+import { CurrentUser } from '@/app/types';
+import { signOut } from 'next-auth/react';
 
-function UserMenu() {
+interface UserMenuProps {
+  currentUser: CurrentUser | null;
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
 
   const handleOpen = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -25,12 +33,23 @@ function UserMenu() {
       />
       {isOpen && (
         <ul className="absolute top-12 right-0 w-40 bg-primaryBg border overflow-hidden rounded-lg text-sm shadow-md flex flex-col items-center justify-center">
-          <MenuItem label="Sign in" onClick={registerModal.onOpen} />
-          <MenuItem label="Login" onClick={() => {}} />
+          {currentUser ? (
+            <>
+              <MenuItem label="My Profile" onClick={() => {}} />
+              <MenuItem label="My Favourites" onClick={() => {}} />
+              <hr />
+              <MenuItem label="Sign out" onClick={signOut} />
+            </>
+          ) : (
+            <>
+              <MenuItem label="Sign in" onClick={registerModal.onOpen} />
+              <MenuItem label="Login" onClick={loginModal.onOpen} />
+            </>
+          )}
         </ul>
       )}
     </div>
   );
-}
+};
 
 export default UserMenu;

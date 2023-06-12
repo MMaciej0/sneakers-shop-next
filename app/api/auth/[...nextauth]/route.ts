@@ -16,18 +16,18 @@ export const authOptions: NextAuthOptions = {
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: 'Credentials',
       credentials: {
-        username: { label: 'Username', type: 'text' },
+        email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        if (!credentials?.username || !credentials?.password) {
-          throw new Error('No usename or password');
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error('No username or password');
         }
 
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.username,
+            email: credentials.email,
           },
         });
 

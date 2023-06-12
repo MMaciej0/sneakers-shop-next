@@ -1,18 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { signIn } from 'next-auth/react';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import { FcGoogle } from 'react-icons/fc';
 import Modal from './Modal';
 import FormInput from '../inputs/FormInput';
 import Button from '../Button';
-import { signIn } from 'next-auth/react';
+import useLoginModal from '@/app/hooks/useLoginModal';
+import { useRouter } from 'next/navigation';
 
-const RegisterModal = () => {
+const LoginModal = () => {
+  const router = useRouter();
   const registerModalState = useRegisterModal();
+  const loginModalState = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -20,34 +23,36 @@ const RegisterModal = () => {
     handleSubmit,
   } = useForm<FieldValues>({
     defaultValues: {
-      name: '',
       email: '',
       password: '',
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
     setIsLoading(true);
-    axios
-      .post('/api/register', data)
-      .then(() => registerModalState.onClose())
-      .catch((error) => {
-        return toast.error('Something went wrong.');
-      });
-    setIsLoading(false);
+
+    signIn('credentials', { ...data, redirect: false }).then((callback) => {
+      setIsLoading(false);
+      if (callback?.ok) {
+        toast('Welcome again');
+        router.refresh();
+        loginModalState.onClose();
+      }
+
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
+  };
+
+  const openRegister = () => {
+    loginModalState.onClose();
+    registerModalState.onOpen();
   };
 
   const modalBody = (
     <div className="flex flex-col gap-4">
-      <FormInput
-        required
-        label="Name"
-        type="text"
-        id="name"
-        register={register}
-        errors={errors}
-        disabled={isLoading}
-      />
       <FormInput
         required
         label="Email"
@@ -79,12 +84,12 @@ const RegisterModal = () => {
         onClick={() => signIn('google')}
       />
       <div className="flex flex-row justify-center items-center gap-2">
-        <div>Already have an account</div>
+        <div>Do not have an account?</div>
         <div
           className="text-neutral-800 cursor-pointer hover:underline"
-          onClick={registerModalState.onClose}
+          onClick={openRegister}
         >
-          Log In
+          Register
         </div>
       </div>
     </>
@@ -94,9 +99,9 @@ const RegisterModal = () => {
     <div>
       <Modal
         body={modalBody}
-        isOpen={registerModalState.isOpen}
-        onClose={registerModalState.onClose}
-        title="Register"
+        isOpen={loginModalState.isOpen}
+        onClose={loginModalState.onClose}
+        title="Login"
         actionLabel="Continue"
         footer={modalFooter}
         onSubmit={handleSubmit(onSubmit)}
@@ -106,4 +111,4 @@ const RegisterModal = () => {
   );
 };
 
-export default RegisterModal;
+export default LoginModal;

@@ -5,10 +5,14 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Container from '../Container';
 import Logo from '../Logo';
 import MiddleMenu from './MiddleMenu';
-
 import UserMenu from './UserMenu';
+import { CurrentUser } from '@/app/types';
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser: CurrentUser | null;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   return (
     <div className="fixed w-full bg-primaryBg shadow-sm z-10">
       <Container>
@@ -29,7 +33,7 @@ const Navbar = () => {
                 className="hover:text-highlight transition cursor-pointer"
               />
             </div>
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
             {/* mobile menu */}
             <div className="md:hidden">
               <AiOutlineMenu size={20} />

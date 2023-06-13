@@ -5,7 +5,6 @@ import RegisterModal from './components/modals/RegisterModal';
 import ToasterProvider from './components/providers/ToasterProvider';
 import LoginModal from './components/modals/LoginModal';
 import getCurrentUser from './actions/getCurrentUser';
-import { CurrentUser } from './types';
 
 const roboto = Roboto({
   weight: ['300', '400', '700', '900'],

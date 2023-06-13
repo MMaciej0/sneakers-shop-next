@@ -1,9 +1,14 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Anton } from 'next/font/google';
+import { Righteous } from 'next/font/google';
 
-const anton = Anton({ weight: '400', subsets: ['latin'] });
+const righteous = Righteous({
+  weight: ['400'],
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 const Logo = () => {
   const router = useRouter();
@@ -11,9 +16,9 @@ const Logo = () => {
   return (
     <div
       onClick={() => router.push('/')}
-      className={`inline-block ${anton.className} text-3xl lg:text-4xl font-normal text-highlight p-1 cursor-pointer`}
+      className={`${righteous.className} inline-block text-xl md:text-3xl font-bold lg:text-4xl text-highlight p-1 cursor-pointer`}
     >
-      sneakers.go
+      SNEAKERS
     </div>
   );
 };

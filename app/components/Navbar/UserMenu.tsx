@@ -22,15 +22,15 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   }, []);
 
   return (
-    <div className="flex items-center relative">
+    <div className="relative w-8 h-8">
       <Image
         onClick={handleOpen}
         className="rounded-full cursor-pointer hover:shadow-md transition"
         src={currentUser?.image || '/images/placeholder.jpg'}
         alt="avatar"
-        width={35}
-        height={35}
+        fill
       />
+
       {isOpen && (
         <ul className="absolute top-12 right-0 w-40 bg-primaryBg border overflow-hidden rounded-lg text-sm shadow-md flex flex-col items-center justify-center">
           {currentUser ? (

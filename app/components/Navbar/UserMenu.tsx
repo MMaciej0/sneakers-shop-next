@@ -32,7 +32,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       />
 
       {isOpen && (
-        <ul className="absolute top-12 right-0 w-40 bg-primaryBg border overflow-hidden rounded-lg text-sm shadow-md flex flex-col items-center justify-center">
+        <ul className="absolute top-12 right-0 w-40 z-50 bg-primaryBg border overflow-hidden rounded-lg text-sm shadow-md flex flex-col items-center justify-center">
           {currentUser ? (
             <>
               <MenuItem label="My Profile" onClick={() => {}} />

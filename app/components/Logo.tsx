@@ -16,7 +16,7 @@ const Logo = () => {
   return (
     <div
       onClick={() => router.push('/')}
-      className={`${righteous.className} inline-block text-xl md:text-3xl font-bold lg:text-4xl text-highlight p-1 cursor-pointer`}
+      className={`${righteous.className} inline-block text-xl md:text-xl lg:text-4xl font-bold text-highlight p-1 cursor-pointer`}
     >
       SNEAKERS
     </div>

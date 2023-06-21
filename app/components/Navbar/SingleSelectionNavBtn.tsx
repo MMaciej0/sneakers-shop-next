@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useCallback } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import qs from 'query-string';
 
 interface SingleSelectionNavBtnProps {
@@ -20,31 +19,25 @@ const SingleSelectionNavBtn: React.FC<SingleSelectionNavBtnProps> = ({
   const params = useSearchParams();
 
   const handleClick = useCallback(() => {
-    let currentQuery = {};
+    let currentQuery = qs.parse(params.toString());
 
-    if (params) {
-      currentQuery = qs.parse(params.toString());
+    if (currentQuery[paramName] === label.toLowerCase()) {
+      return router.push('/');
+    } else {
+      let updatedQuery = {
+        [paramName]: label.toLowerCase(),
+      };
+      const url = qs.stringifyUrl(
+        {
+          url: '/',
+          query: updatedQuery,
+        },
+        { skipNull: true }
+      );
+
+      router.push(url);
     }
-
-    const updatedQuery: any = {
-      ...currentQuery,
-      [paramName]: label.toLowerCase(),
-    };
-
-    if (params?.get(paramName) === label.toLowerCase()) {
-      delete updatedQuery[paramName];
-    }
-
-    const url = qs.stringifyUrl(
-      {
-        url: '/',
-        query: updatedQuery,
-      },
-      { skipNull: true }
-    );
-
-    router.push(url);
-  }, [router, params, label, paramName]);
+  }, [router, label, paramName, params]);
 
   return (
     <div
